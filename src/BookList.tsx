@@ -1,4 +1,4 @@
-import { createSignal } from "solid-js";
+import { createSignal, For } from "solid-js";
 
 type Book = {
   title: string;
@@ -16,14 +16,18 @@ export function BookList() {
 
   return (
     <ul>
-      <li>
-        Code Complete{" "}
-        <span style={{ "font-style": "italic" }}>({books()[0].author})</span>
-      </li>
-      <li>
-        The Hobbit{" "}
-        <span style={{ "font-style": "italic" }}>({books()[1].author})</span>
-      </li>
+      <For each={books()}>
+        {
+          (book) => {
+            return (
+              <li>
+                {book.title}
+                <span style={{"font-style": "italic"}}>({book.author})</span>
+              </li>
+            );
+          }
+        }
+      </For>
     </ul>
   );
 }
