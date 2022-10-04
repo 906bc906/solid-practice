@@ -1,6 +1,6 @@
 import { BookList } from "./BookList"
 import { AddBook } from "./AddBook"
-import { createSignal } from "solid-js";
+import { createSignal, Show } from "solid-js";
 
 export type Book = {
   title: string;
@@ -19,12 +19,20 @@ interface BookshelfProps {
 
 function Bookshelf(props: BookshelfProps) {
   const [books, setBooks] = createSignal(initialBooks);
+  const [showForm, setShowForm] = createSignal(false);
+  const toggleForm = () => setShowForm(!showForm());
 
   return (
     <div>
       <h1>{props.name}'s Bookshelf</h1>
       <BookList books={books()} />
-      <AddBook setBooks={setBooks} />
+      <Show
+        when={showForm()}
+        fallback={<button onClick={toggleForm}>Add a book</button>}
+      >
+        <AddBook setBooks={setBooks} />
+        <button onClick={toggleForm}>Finished adding books</button>
+      </Show>
     </div>
   )
 }
