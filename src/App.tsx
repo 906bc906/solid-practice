@@ -6,6 +6,7 @@ export type Book = {
   title: string;
   author: string;
 };
+
 const initialBooks: Book[] = [
   { title: "Code Complete", author: "Steve McConnell" },
   { title: "The Hobbit", author: "J.R.R. Tolkien" },
@@ -23,7 +24,7 @@ function Bookshelf(props: BookshelfProps) {
     <div>
       <h1>{props.name}'s Bookshelf</h1>
       <BookList books={books()} />
-      <AddBook />
+      <AddBook setBooks={setBooks} />
     </div>
   )
 }
