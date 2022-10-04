@@ -1,24 +1,17 @@
 import { createSignal, For } from "solid-js";
+import { Book } from "./App";
 
-type Book = {
-  title: string;
-  author: string;
-};
 
-const initialBooks: Book[] = [
-  { title: "Code Complete", author: "Steve McConnell" },
-  { title: "The Hobbit", author: "J.R.R. Tolkien" },
-  { title: "Living a Feminist Life", author: "Sarah Ahmed" },
-];
-
-export function BookList() {
-  const [books, setBooks] = createSignal(initialBooks);
-  const totalBooks = () => books().length;
+interface BookListProps {
+  books: Book[];
+}
+export function BookList(props: BookListProps) {
+  const totalBooks = () => props.books.length;
   return (
     <>
       <h2>My Books ({totalBooks()})</h2>
       <ul>
-        <For each={books()}>
+        <For each={props.books}>
           {
             (book) => {
               return (
